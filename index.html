@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Untuk Bunga 🌸 Calon MC Terbaik PPLK</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Yellowtail&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --pink-bg1:#ffe6f0;
+    --pink-bg2:#ffd1e6;
+    --pink-deep:#e0417a;
+    --pink-mid:#ff6fa5;
+    --pink-soft:#ffc1dd;
+    --pink-card:#fff5f9;
+    --pink-text:#8a2454;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;}
+  body{
+    min-height:100vh;
+    font-family:'Poppins', sans-serif;
+    background: linear-gradient(160deg, var(--pink-bg1), var(--pink-bg2) 60%, #ffb8d9);
+    color:var(--pink-text);
+    overflow-x:hidden;
+    position:relative;
+  }
+
+  /* ===================== LOADING SCREEN ===================== */
+  #loadingScreen{
+    position:fixed;
+    inset:0;
+    z-index:9999;
+    background: linear-gradient(160deg, #ffd6e8, #ff9dc2);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    transition: opacity 0.7s ease, visibility 0.7s ease;
+  }
+  #loadingScreen.hide{
+    opacity:0;
+    visibility:hidden;
+    pointer-events:none;
+  }
+  .loader-flower{
+    font-size:64px;
+    animation: spin 1.4s linear infinite;
+  }
+  @keyframes spin{
+    from{ transform:rotate(0deg); }
+    to{ transform:rotate(360deg); }
+  }
+  .loader-text{
+    margin-top:18px;
+    font-family:'Yellowtail', cursive;
+    font-size:26px;
+    color:#8a2454;
+  }
+  .loader-bar{
+    margin-top:20px;
+    width:180px;
+    height:8px;
+    background:#ffffffaa;
+    border-radius:999px;
+    overflow:hidden;
+  }
+  .loader-bar-fill{
+    height:100%;
+    width:0%;
+    background:var(--pink-deep);
+    border-radius:999px;
+    animation: loadfill 2.2s ease forwards;
+  }
+  @keyframes loadfill{
+    from{ width:0%; }
+    to{ width:100%; }
+  }
+
+  /* ===================== background petals ===================== */
+  .petals{
+    position:fixed;
+    top:-10%;
+    left:0;
+    width:100%;
+    height:110vh;
+    pointer-events:none;
+    z-index:0;
+    overflow:hidden;
+  }
+  .petal{
+    position:absolute;
+    top:-5%;
+    font-size:22px;
+    animation: fall linear infinite, sway ease-in-out infinite;
+    opacity:0.85;
+    user-select:none;
+  }
+  @keyframes fall{ to{ transform: translateY(115vh) rotate(360deg); } }
+  @keyframes sway{ 0%,100%{ margin-left:0px; } 50%{ margin-left:40px; } }
+
+  .wrap{
+    position:relative;
+    z-index:1;
+    max-width:820px;
+    margin:0 auto;
+    padding:50px 24px 100px;
+    text-align:center;
+  }
+
+  h1.title{
+    font-family:'Yellowtail', cursive;
+    font-size:clamp(42px, 8vw, 72px);
+    color:var(--pink-deep);
+    margin:0 0 6px;
+    text-shadow: 2px 2px 0 #ffffffaa;
+  }
+  .subtitle{
+    font-size:18px;
+    font-weight:500;
+    color:var(--pink-mid);
+    margin-bottom:36px;
+  }
+
+  .card{
+    background:var(--pink-card);
+    border:2px dashed var(--pink-soft);
+    border-radius:24px;
+    padding:28px 26px;
+    margin:22px 0;
+    box-shadow:0 10px 30px rgba(224,65,122,0.12);
+    text-align:left;
+  }
+  .card h2{
+    font-family:'Yellowtail', cursive;
+    font-size:30px;
+    color:var(--pink-deep);
+    margin:0 0 12px;
+    text-align:center;
+  }
+  .card p{ font-size:16px; line-height:1.7; margin:0 0 10px; }
+  .card p:last-child{margin-bottom:0;}
+
+  .badge{
+    display:inline-block;
+    background:var(--pink-mid);
+    color:#fff;
+    padding:6px 16px;
+    border-radius:999px;
+    font-size:13px;
+    font-weight:600;
+    letter-spacing:0.5px;
+    margin-bottom:14px;
+  }
+
+  .btn{
+    display:inline-block;
+    background:linear-gradient(135deg, var(--pink-mid), var(--pink-deep));
+    color:#fff;
+    border:none;
+    padding:14px 26px;
+    border-radius:999px;
+    font-family:'Poppins', sans-serif;
+    font-weight:600;
+    font-size:15px;
+    cursor:pointer;
+    box-shadow:0 8px 18px rgba(224,65,122,0.35);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    margin:8px 6px;
+  }
+  .btn:hover{ transform: translateY(-3px) scale(1.03); box-shadow:0 12px 22px rgba(224,65,122,0.45); }
+  .btn:active{ transform: translateY(0) scale(0.98); }
+  .btn.secondary{
+    background:#fff;
+    color:var(--pink-deep);
+    border:2px solid var(--pink-mid);
+    box-shadow:none;
+  }
+  .btn.mood{
+    font-size:15px;
+    padding:12px 20px;
+  }
+
+  .output-box{
+    margin-top:16px;
+    background:#fff;
+    border-radius:16px;
+    padding:18px 20px;
+    font-size:16px;
+    font-weight:500;
+    color:var(--pink-deep);
+    min-height:28px;
+    border:2px solid var(--pink-soft);
+  }
+
+  .divider{
+    font-size:22px;
+    letter-spacing:14px;
+    color:var(--pink-mid);
+    margin:30px 0;
+  }
+
+  footer{
+    position:relative;
+    z-index:1;
+    text-align:center;
+    font-size:14px;
+    color:var(--pink-mid);
+    padding-bottom:30px;
+  }
+
+  /* ===================== FINALE FULL SCREEN FLOWER ANIMATION ===================== */
+  #finaleScreen{
+    position:fixed;
+    inset:0;
+    z-index:2000;
+    background: radial-gradient(circle at 50% 20%, #ffdcec, #ff8fc0 70%);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
+    text-align:center;
+    overflow:hidden;
+  }
+  #finaleScreen.show{ display:flex; }
+  .finale-message{
+    font-family:'Yellowtail', cursive;
+    font-size:clamp(36px, 7vw, 60px);
+    color:#8a2454;
+    text-shadow:2px 2px 0 #ffffffcc;
+    z-index:2;
+    padding:0 20px;
+  }
+  .finale-sub{
+    font-size:16px;
+    font-weight:600;
+    color:#b83b70;
+    z-index:2;
+    margin-top:10px;
+  }
+  #closeFinale{
+    margin-top:26px;
+    z-index:2;
+  }
+  .finale-petal{
+    position:absolute;
+    top:-8%;
+    font-size:28px;
+    animation: finalefall linear infinite;
+    z-index:1;
+  }
+  @keyframes finalefall{
+    to{ transform: translateY(120vh) rotate(500deg); }
+  }
+
+  @media (max-width:480px){
+    .card{padding:20px 16px;}
+  }
+</style>
+</head>
+<body>
+
+<!-- LOADING SCREEN -->
+<div id="loadingScreen">
+  <div class="loader-flower">🌸</div>
+  <div class="loader-text">Sedang menyiram bunga...</div>
+  <div class="loader-bar"><div class="loader-bar-fill"></div></div>
+</div>
+
+<div class="petals" id="petalsBg"></div>
+
+<div class="wrap">
+
+  <h1 class="title">Untuk Bunga 🌸</h1>
+  <div class="subtitle">Calon MC Terbaik PPLK yang sedang mekar sempurna ✨🎤</div>
+
+  <div class="card">
+    <span class="badge">Jiayou, Bunga! 💪</span>
+    <h2>Kamu Sedang Bertumbuh</h2>
+    <p>Bunga, tau nggak kenapa namamu cocok banget sama perjalananmu sekarang? Karena bunga yang paling indah itu nggak mekar dalam semalam. Butuh proses, butuh waktu, butuh sedikit hujan biar bisa tumbuh kuat. Dan kamu, sedang ada di proses itu — proses jadi MC terbaik di PPLK.</p>
+    <p>Gugup sebelum naik panggung? Wajar. Lupa satu-dua kalimat pas latihan? Wajar. Bahkan bunga paling cantik pun mulai dari biji kecil yang nggak kelihatan apa-apa. Tapi lihat sekarang — biji itu sedang tumbuh jadi sesuatu yang akan bikin semua orang di PPLK terpukau.</p>
+  </div>
+
+  <div class="card">
+    <h2>Kenapa Bunga Bakal Jadi MC Hebat</h2>
+    <p>🌷 Suaramu didengar, bukan cuma sebagai suara, tapi sebagai energi yang bikin acara hidup.</p>
+    <p>🌸 Setiap kali kamu latihan, kamu nggak cuma menghafal skrip — kamu sedang membangun rasa percaya diri yang nggak akan hilang.</p>
+    <p>🌺 Panggung itu bukan tempat buat jadi sempurna. Panggung itu tempat buat jadi berani. Dan kamu, sudah berani ada di sana.</p>
+  </div>
+
+  <div class="divider">🌸 • 🌷 • 🌺 • 🌼 • 🌹</div>
+
+  <!-- HOW'S YOUR DAY -->
+  <div class="card">
+    <h2>Hari Ini Bunga Gimana? 🌷</h2>
+    <p style="text-align:center;">Cerita dikit dong ke bunga-bunga ini, hari ini kamu lagi gimana?</p>
+    <div style="text-align:center;">
+      <button class="btn mood" onclick="moodResponse('senang')">😊 Lagi Senang</button>
+      <button class="btn mood secondary" onclick="moodResponse('sedih')">😢 Lagi Sedih</button>
+      <button class="btn mood secondary" onclick="moodResponse('biasa')">😐 Biasa Aja</button>
+    </div>
+    <div class="output-box" id="moodBox">Pilih salah satu dulu ya, Bunga~</div>
+  </div>
+
+  <!-- HYPE / JIAYOU -->
+  <div class="card">
+    <h2>Klik Untuk Jiayou! 💗</h2>
+    <p style="text-align:center;">Lagi butuh boost jiayou mendadak? Pencet aja tombol di bawah ini~</p>
+    <div style="text-align:center;">
+      <button class="btn" onclick="randomHype()">✨ Kasih Aku Jiayou!</button>
+    </div>
+    <div class="output-box" id="hypeBox">Klik tombolnya, Bunga~ 🌸</div>
+  </div>
+
+  <!-- SASTRA LUCU -->
+  <div class="card">
+    <h2>Sastra Receh Untuk Bunga 📜🌸</h2>
+    <p style="text-align:center;">Sedikit kata-kata sastra... yang agak absurd, tapi tulus. Nikmati puisi receh ini.</p>
+    <div style="text-align:center;">
+      <button class="btn secondary" onclick="randomSastra()">🎭 Bacakan Sastra Baru</button>
+    </div>
+    <div class="output-box" id="sastraBox">Tekan tombolnya buat baca sastra receh~</div>
+  </div>
+
+  <div class="card">
+    <h2>Latihan MC Kilat 🎤</h2>
+    <p style="text-align:center;">MC hebat butuh mulut yang lentur! Yuk latihan pantun/tongue twister lucu ini pelan-pelan, terus makin cepat. Kalau kepleset lidah, itu artinya kamu lagi latihan yang benar!</p>
+    <div style="text-align:center;">
+      <button class="btn secondary" onclick="randomTwister()">🔁 Kasih Latihan Baru</button>
+    </div>
+    <div class="output-box" id="twisterBox">Pencet tombolnya buat mulai latihan~</div>
+  </div>
+
+  <div class="card" style="text-align:center;">
+    <h2>Untuk Hari Besarmu, Bunga 🌹</h2>
+    <p>Apapun yang terjadi di panggung nanti — lancar atau nggak, sempurna atau nggak — satu hal yang pasti: kamu sudah berjuang, sudah latihan, sudah berani mencoba jadi versi terbaik dirimu. Itu udah menang duluan.</p>
+    <p><strong>Jiayou Bunga. Selamat mekar. Kami semua bangga sama kamu. 🌸💗</strong></p>
+    <button class="btn" onclick="openFinale()">🌸 Rayakan Bunga Sekarang!</button>
+  </div>
+
+</div>
+
+<footer>dibuat dengan sepenuh hati, khusus untuk Bunga 🌷</footer>
+
+<!-- FINALE FULL SCREEN -->
+<div id="finaleScreen">
+  <div class="finale-message">Jiayou, Bunga! 🌸</div>
+  <div class="finale-sub">Selamat mekar, selamat bersinar di panggung PPLK ✨</div>
+  <button class="btn secondary" id="closeFinale" onclick="closeFinale()">Tutup ✕</button>
+</div>
+
+<script>
+  const emojiSet = ["🌸","🌷","🌺","🌼","🌹","💮","🏵️"];
+
+  /* ---------- loading screen ---------- */
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      document.getElementById('loadingScreen').classList.add('hide');
+    }, 2300);
+  });
+
+  /* ---------- background gentle falling petals ---------- */
+  const bg = document.getElementById('petalsBg');
+  for(let i=0;i<24;i++){
+    const p = document.createElement('div');
+    p.className = 'petal';
+    p.textContent = emojiSet[Math.floor(Math.random()*emojiSet.length)];
+    p.style.left = Math.random()*100 + 'vw';
+    const dur = 8 + Math.random()*10;
+    p.style.animationDuration = dur + 's, ' + (dur*0.6) + 's';
+    p.style.animationDelay = (Math.random()*10) + 's, 0s';
+    p.style.fontSize = (16 + Math.random()*16) + 'px';
+    bg.appendChild(p);
+  }
+
+  /* ---------- mood responses ---------- */
+  const moodMessages = {
+    senang: [
+      "Yeay! Ikutan senang dengernya 🌸 Simpan energi ini buat latihan MC hari ini ya, Bunga!",
+      "Bagus banget! Hari yang cerah cocok buat hati yang lagi mekar kayak kamu. Jiayou terus! 🌷",
+      "Senyum Bunga hari ini pasti bikin sekitar ikut cerah. Bawa terus ke panggung ya! 🌼"
+    ],
+    sedih: [
+      "Nggak apa-apa, Bunga. Bahkan bunga paling cantik pun butuh hari mendung buat istirahat sebentar. Pelan-pelan aja ya 🌧️🌸",
+      "Boleh sedih dulu, boleh capek dulu. Kamu nggak harus selalu kuat setiap saat. Bunga di sini nemenin kamu 💗",
+      "Hari ini berat? It's okay. Besok bunga bisa mekar lagi. Istirahat dulu, jiayou-nya nanti dilanjut lagi 🌷"
+    ],
+    biasa: [
+      "Hari biasa juga tetap berharga, Bunga. Nggak semua hari harus spesial buat tetap maju pelan-pelan 🌼",
+      "Biasa aja itu oke banget. Justru dari hari-hari biasa ini latihan kecil kamu numpuk jadi hebat nanti 🌸",
+      "Santai aja hari ini, Bunga. Yang penting besok tetap ada langkah kecil menuju panggung PPLK ✨"
+    ]
+  };
+  function moodResponse(mood){
+    const box = document.getElementById('moodBox');
+    const arr = moodMessages[mood];
+    box.textContent = arr[Math.floor(Math.random()*arr.length)];
+  }
+
+  /* ---------- jiayou hype ---------- */
+  const hypeMessages = [
+    "Bunga, mic di tanganmu, dan hati penonton udah nunggu suaramu! 🎤💗",
+    "Nervous itu tandanya kamu peduli. Dan orang yang peduli, selalu tampil maksimal. 🌸",
+    "Kamu bukan lagi calon MC. Kamu MC yang lagi dalam proses jadi legend PPLK. 🌟",
+    "Latihan hari ini adalah panggung suksesmu besok. Jiayou terus, Bunga! 🌷",
+    "Ingat: bunga paling wangi itu yang tumbuh pelan-pelan dan pasti. Itu kamu. 🌺",
+    "Kalau grogi datang, bilang aja: 'aku udah latihan, aku siap.' Karena itu benar. 💪",
+    "Panggung PPLK beruntung banget bakal punya MC sehangat kamu. 🌼",
+    "Senyummu di panggung nanti bakal jadi alasan orang inget acara itu. Jiayou! 🌹",
+    "Bunga, kamu udah jalan sejauh ini. Tinggal selangkah lagi menuju versi terbaikmu. ✨",
+    "Suaramu itu unik. Jangan bandingin sama MC lain, cukup jadi Bunga yang terbaik. 🌸"
+  ];
+  function randomHype(){
+    const box = document.getElementById('hypeBox');
+    box.textContent = hypeMessages[Math.floor(Math.random()*hypeMessages.length)];
+  }
+
+  /* ---------- sastra receh ---------- */
+  const sastraLines = [
+    "Kalau rindu itu hujan, maka kamu adalah payung yang selalu siap sebelum aku basah oleh gugup.",
+    "Bunga tak pernah iri pada matahari, sebab ia tahu mekarnya sendiri sudah cukup jadi cahaya panggung.",
+    "Di antara ribuan kata sambutan, hanya suaramu yang bisa membuat MC dadakan terdengar seperti puisi.",
+    "Malam boleh gelap, tapi naskah MC-mu tetap terang di kepala — walau kadang lupa di kalimat kedua.",
+    "Aku tak pandai berpuisi, tapi kalau soal semangat untukmu, aku bisa menulis sampai baterai laptop habis.",
+    "Mic bukan sekadar alat, ia adalah tongkat estafet mimpimu yang sedang berlari menuju panggung PPLK.",
+    "Kata orang, gugup itu kupu-kupu di perut. Punyamu kayaknya udah bermigrasi jadi kawanan penuh semangat.",
+    "Jika kata-kata adalah bunga, maka setiap kalimatmu di panggung nanti akan jadi taman yang paling ditunggu."
+  ];
+  function randomSastra(){
+    const box = document.getElementById('sastraBox');
+    box.textContent = sastraLines[Math.floor(Math.random()*sastraLines.length)];
+  }
+
+  /* ---------- tongue twisters ---------- */
+  const twisters = [
+    "Kupu-kupu kuning kunang-kunang, kudengar kabar Bunga jadi MC gemilang.",
+    "Bunga bugar berbunga-bunga, berbagi bahagia bersama semua.",
+    "Mari MC mantap, membawa mimpi menjadi milik-milik masa depan.",
+    "Panggung penuh pesona, penonton pun puas paham pesan positif.",
+    "Suara indah, sikap ramah, jiayou Bunga selalu istimewah — eh, istimewa!",
+    "Latihan lancar, lidah lentur, langkah lebar, level lebih legend.",
+    "Cepat cakap, ceria ceriwis, calon MC cantik ciamik!",
+    "Rapi, ramah, riang, rangkul ruangan, raih riuh tepuk tangan."
+  ];
+  function randomTwister(){
+    const box = document.getElementById('twisterBox');
+    box.textContent = twisters[Math.floor(Math.random()*twisters.length)];
+  }
+
+  /* ---------- finale full screen flower animation ---------- */
+  let finaleInterval = null;
+  function openFinale(){
+    const screen = document.getElementById('finaleScreen');
+    screen.classList.add('show');
+    spawnFinalePetal();
+    finaleInterval = setInterval(spawnFinalePetal, 150);
+  }
+  function closeFinale(){
+    const screen = document.getElementById('finaleScreen');
+    screen.classList.remove('show');
+    clearInterval(finaleInterval);
+    screen.querySelectorAll('.finale-petal').forEach(el => el.remove());
+  }
+  function spawnFinalePetal(){
+    const screen = document.getElementById('finaleScreen');
+    const p = document.createElement('div');
+    p.className = 'finale-petal';
+    p.textContent = emojiSet[Math.floor(Math.random()*emojiSet.length)];
+    p.style.left = Math.random()*100 + 'vw';
+    p.style.fontSize = (18 + Math.random()*24) + 'px';
+    const dur = 3 + Math.random()*3;
+    p.style.animationDuration = dur + 's';
+    screen.appendChild(p);
+    setTimeout(()=>p.remove(), dur*1000);
+  }
+</script>
+
+</body>
+</html>
