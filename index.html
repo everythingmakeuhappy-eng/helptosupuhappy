@@ -257,11 +257,148 @@
   @media (max-width:480px){
     .card{padding:20px 16px;}
   }
+
+  /* ===================== MUSIC TOGGLE BUTTON ===================== */
+  #musicToggle{
+    position:fixed;
+    bottom:22px;
+    right:22px;
+    z-index:3000;
+    width:52px;
+    height:52px;
+    border-radius:50%;
+    background:linear-gradient(135deg, var(--pink-mid), var(--pink-deep));
+    color:#fff;
+    border:none;
+    font-size:22px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    box-shadow:0 8px 18px rgba(224,65,122,0.4);
+    cursor:pointer;
+    transition: transform 0.15s ease;
+  }
+  #musicToggle:hover{ transform: scale(1.08); }
+  #musicToggle:active{ transform: scale(0.95); }
+  #musicToggle.spinning{ animation: spin 3.5s linear infinite; }
+
+  /* ===================== VERSE / KATA ROHANI CARD ===================== */
+  .verse-card{
+    background: linear-gradient(160deg, #fffaf0, #fff2dc);
+    border: 2px solid #e6c98a;
+    box-shadow: 0 10px 30px rgba(201,143,43,0.18);
+  }
+  .verse-card h2{ color:#a9762d; }
+  .verse-card .verse-caps{
+    font-weight:700;
+    letter-spacing:0.5px;
+    text-align:center;
+    color:#8a5a12;
+    margin:4px 0;
+  }
+  .verse-card .verse-ref{
+    font-family:'Yellowtail', cursive;
+    font-size:26px;
+    color:#c98f2b;
+    text-align:center;
+    margin:14px 0 8px;
+  }
+  .verse-card .verse-text{
+    font-style:italic;
+    line-height:1.8;
+    text-align:center;
+    color:#7a5220;
+  }
+
+  /* ===================== FINALE FLOWER + BUTTERFLY SCENE ===================== */
+  #finaleFlowerStage{
+    position:absolute;
+    inset:0;
+    z-index:1;
+    overflow:hidden;
+  }
+  #finaleFlowerStage svg{ width:100%; height:100%; overflow:visible; }
+
+  #finaleFlowerStage .fstar{
+    fill:#fff;
+    opacity:0.15;
+    animation: fTwinkle 2.5s ease-in-out infinite;
+  }
+  @keyframes fTwinkle{ 0%,100%{opacity:0.1;} 50%{opacity:0.9;} }
+
+  #finaleFlowerStage #fStem{
+    fill:none; stroke:#2fbf4a; stroke-width:6; stroke-linecap:round;
+    stroke-dasharray:420; stroke-dashoffset:420;
+    animation: fGrowStem 2s ease-out forwards;
+  }
+  @keyframes fGrowStem{ to{ stroke-dashoffset:0; } }
+
+  #finaleFlowerStage #fStemL, #finaleFlowerStage #fStemR{
+    fill:none; stroke:#24a63f; stroke-width:4; stroke-linecap:round;
+    stroke-dasharray:260; stroke-dashoffset:260;
+    animation: fGrowStem 1.6s ease-out forwards;
+  }
+  #finaleFlowerStage #fStemL{ animation-delay:.3s; }
+  #finaleFlowerStage #fStemR{ animation-delay:.5s; }
+
+  #finaleFlowerStage .fleaf{
+    opacity:0; transform-origin:center; transform:scale(0);
+    animation: fPopLeaf .6s ease-out forwards;
+  }
+  @keyframes fPopLeaf{
+    0%{opacity:0; transform:scale(0) rotate(0deg);}
+    70%{opacity:1; transform:scale(1.15);}
+    100%{opacity:1; transform:scale(1);}
+  }
+
+  #finaleFlowerStage .fpetal{
+    opacity:0;
+    transform-origin:var(--ox) var(--oy);
+    transform:scale(0.1) rotate(var(--rot));
+    animation: fBloom .9s cubic-bezier(.2,1.3,.4,1) forwards;
+  }
+  @keyframes fBloom{
+    0%{opacity:0; transform:scale(0.1) rotate(var(--rot));}
+    60%{opacity:1;}
+    100%{opacity:1; transform:scale(1) rotate(var(--rot));}
+  }
+
+  #finaleFlowerStage .fcenter-glow{ opacity:0; animation: fFadeIn 1s ease forwards; }
+  @keyframes fFadeIn{ to{ opacity:1; } }
+
+  #finaleFlowerStage .fsparkle{
+    opacity:0; animation: fSparkleAnim 1.8s ease-in-out infinite;
+  }
+  @keyframes fSparkleAnim{
+    0%,100%{opacity:0; transform:scale(0.3);}
+    50%{opacity:1; transform:scale(1);}
+  }
+
+  #finaleFlowerStage .fbutterfly{
+    offset-rotate:0deg; opacity:0;
+    animation: fFlyIn 1s ease-out forwards, fFlutter var(--flydur) linear infinite;
+    animation-delay: var(--flydelay), calc(var(--flydelay) + 1s);
+  }
+  @keyframes fFlyIn{ to{ opacity:1; } }
+  @keyframes fFlutter{ 0%{offset-distance:0%;} 100%{offset-distance:100%;} }
+  #finaleFlowerStage .fwing{ transform-origin:0px 0px; animation: fFlap .22s ease-in-out infinite alternate; }
+  #finaleFlowerStage .fwing.right{ animation-delay:0.11s; }
+  @keyframes fFlap{ 0%{transform:scaleX(1);} 100%{transform:scaleX(0.35);} }
+
+  #finaleFlowerStage .ffalling-petal{ opacity:0; animation: fRoseFall linear infinite; }
+  @keyframes fRoseFall{
+    0%{opacity:0; transform:translate(0,0) rotate(0deg);}
+    8%{opacity:0.9;}
+    100%{opacity:0; transform:translate(var(--dx), 640px) rotate(var(--spin));}
+  }
 </style>
 </head>
 <body>
 
 <!-- LOADING SCREEN -->
+<audio id="bgMusic" src="bgm.mp3" loop preload="auto"></audio>
+<button id="musicToggle" onclick="toggleMusic(event)" aria-label="Putar/Jeda musik">🔇</button>
+
 <div id="loadingScreen">
   <div class="loader-flower">🌸</div>
   <div class="loader-text">Sedang menyiram bunga...</div>
@@ -332,6 +469,15 @@
     <div class="output-box" id="twisterBox">Pencet tombolnya buat mulai latihan~</div>
   </div>
 
+  <div class="card verse-card" style="text-align:center;">
+    <span class="badge">🙏 Untuk Bunga</span>
+    <h2>Andalkan Tuhan</h2>
+    <p class="verse-caps">JANGAN LUPA SELALU ANDALKAN TUHAN BERSAMAMU</p>
+    <p class="verse-caps">LET GOD LEAD U</p>
+    <div class="verse-ref">Yesaya 41:10</div>
+    <p class="verse-text">"Janganlah takut, sebab Aku menyertai engkau, janganlah bimbang, sebab Aku ini Allahmu; Aku akan meneguhkan, bahkan akan menolong engkau; Aku akan memegang engkau dengan tangan kanan-Ku yang membawa kemenangan."</p>
+  </div>
+
   <div class="card" style="text-align:center;">
     <h2>Untuk Hari Besarmu, Bunga 🌹</h2>
     <p>Apapun yang terjadi di panggung nanti — lancar atau nggak, sempurna atau nggak — satu hal yang pasti: kamu sudah berjuang, sudah latihan, sudah berani mencoba jadi versi terbaik dirimu. Itu udah menang duluan.</p>
@@ -345,6 +491,122 @@
 
 <!-- FINALE FULL SCREEN -->
 <div id="finaleScreen">
+  <div id="finaleFlowerStage">
+    <svg viewBox="0 0 700 700" id="fScene">
+      <defs>
+        <radialGradient id="petalRed" cx="35%" cy="30%" r="80%">
+          <stop offset="0%" stop-color="#ff9a9a"/><stop offset="55%" stop-color="#ff2d55"/><stop offset="100%" stop-color="#b8003a"/>
+        </radialGradient>
+        <radialGradient id="petalPink" cx="35%" cy="30%" r="80%">
+          <stop offset="0%" stop-color="#ffd1f0"/><stop offset="55%" stop-color="#ff5fc4"/><stop offset="100%" stop-color="#c400a0"/>
+        </radialGradient>
+        <radialGradient id="petalOrange" cx="35%" cy="30%" r="80%">
+          <stop offset="0%" stop-color="#ffe19a"/><stop offset="55%" stop-color="#ff9a2e"/><stop offset="100%" stop-color="#e6620a"/>
+        </radialGradient>
+        <radialGradient id="petalPurple" cx="35%" cy="30%" r="80%">
+          <stop offset="0%" stop-color="#e3c9ff"/><stop offset="55%" stop-color="#a259ff"/><stop offset="100%" stop-color="#6414c8"/>
+        </radialGradient>
+        <radialGradient id="petalYellow" cx="35%" cy="30%" r="80%">
+          <stop offset="0%" stop-color="#fffbcf"/><stop offset="55%" stop-color="#ffe234"/><stop offset="100%" stop-color="#e0a800"/>
+        </radialGradient>
+        <radialGradient id="petalBlue" cx="35%" cy="30%" r="80%">
+          <stop offset="0%" stop-color="#c6e9ff"/><stop offset="55%" stop-color="#38b6ff"/><stop offset="100%" stop-color="#0866c6"/>
+        </radialGradient>
+        <radialGradient id="petalTeal" cx="35%" cy="30%" r="80%">
+          <stop offset="0%" stop-color="#c8fff2"/><stop offset="55%" stop-color="#2fe0b0"/><stop offset="100%" stop-color="#00947a"/>
+        </radialGradient>
+        <radialGradient id="coreGlow" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#fff6c8"/><stop offset="100%" stop-color="#ffb347" stop-opacity="0"/>
+        </radialGradient>
+        <linearGradient id="leafGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#5be06b"/><stop offset="100%" stop-color="#1f9c3c"/>
+        </linearGradient>
+        <linearGradient id="wingA" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#ff6ec7"/><stop offset="100%" stop-color="#7b2ff7"/>
+        </linearGradient>
+        <linearGradient id="wingB" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#ffd166"/><stop offset="100%" stop-color="#ff5e5e"/>
+        </linearGradient>
+        <linearGradient id="wingC" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#5ee7ff"/><stop offset="100%" stop-color="#3a7bd5"/>
+        </linearGradient>
+
+        <symbol id="fButterflyTpl" viewBox="-30 -30 60 60">
+          <g class="fwing left">
+            <path d="M0,0 C-6,-22 -30,-26 -28,-6 C-27,8 -12,10 0,0 Z" fill="url(#wingA)"/>
+            <path d="M0,2 C-5,16 -22,20 -20,6 C-19,-2 -10,0 0,2 Z" fill="url(#wingA)" opacity="0.85"/>
+          </g>
+          <g class="fwing right">
+            <path d="M0,0 C6,-22 30,-26 28,-6 C27,8 12,10 0,0 Z" fill="url(#wingB)"/>
+            <path d="M0,2 C5,16 22,20 20,6 C19,-2 10,0 0,2 Z" fill="url(#wingB)" opacity="0.85"/>
+          </g>
+          <ellipse cx="0" cy="0" rx="2.4" ry="12" fill="#2b1b0e"/>
+          <circle cx="0" cy="-11" r="2.2" fill="#2b1b0e"/>
+        </symbol>
+      </defs>
+
+      <g id="fStars"></g>
+
+      <path id="fStem" d="M350,650 C350,560 340,480 350,400 C358,340 350,260 350,190" />
+      <path id="fStemL" d="M350,470 C300,450 260,430 225,455" />
+      <path id="fStemR" d="M350,380 C400,360 440,375 465,410" />
+
+      <path class="fleaf" style="animation-delay:1.0s" fill="url(#leafGrad)" d="M340,480 C280,470 240,510 230,560 C300,555 335,520 340,480 Z" />
+      <path class="fleaf" style="animation-delay:1.2s" fill="url(#leafGrad)" d="M355,400 C420,388 460,420 470,470 C400,468 362,438 355,400 Z" />
+      <path class="fleaf" style="animation-delay:1.6s" fill="url(#leafGrad)" transform="translate(225,455) scale(0.8)" d="M0,0 C-40,-8 -70,10 -78,45 C-30,45 -6,20 0,0 Z" />
+      <path class="fleaf" style="animation-delay:1.8s" fill="url(#leafGrad)" transform="translate(465,410) scale(0.8)" d="M0,0 C40,-10 72,6 82,40 C34,42 8,18 0,0 Z" />
+
+      <g id="fRose">
+        <circle class="fcenter-glow" style="animation-delay:2.6s" cx="350" cy="165" r="75" fill="url(#coreGlow)" />
+
+        <path class="fpetal" style="--rot:0deg;--ox:350px;--oy:165px; animation-delay:1.9s" fill="url(#petalRed)" d="M350,165 C310,140 300,90 350,60 C400,90 390,140 350,165 Z"/>
+        <path class="fpetal" style="--rot:51deg;--ox:350px;--oy:165px; animation-delay:1.95s" fill="url(#petalPink)" d="M350,165 C310,140 300,90 350,60 C400,90 390,140 350,165 Z"/>
+        <path class="fpetal" style="--rot:102deg;--ox:350px;--oy:165px; animation-delay:2.0s" fill="url(#petalOrange)" d="M350,165 C310,140 300,90 350,60 C400,90 390,140 350,165 Z"/>
+        <path class="fpetal" style="--rot:153deg;--ox:350px;--oy:165px; animation-delay:2.05s" fill="url(#petalPurple)" d="M350,165 C310,140 300,90 350,60 C400,90 390,140 350,165 Z"/>
+        <path class="fpetal" style="--rot:204deg;--ox:350px;--oy:165px; animation-delay:2.1s" fill="url(#petalYellow)" d="M350,165 C310,140 300,90 350,60 C400,90 390,140 350,165 Z"/>
+        <path class="fpetal" style="--rot:255deg;--ox:350px;--oy:165px; animation-delay:2.15s" fill="url(#petalBlue)" d="M350,165 C310,140 300,90 350,60 C400,90 390,140 350,165 Z"/>
+        <path class="fpetal" style="--rot:306deg;--ox:350px;--oy:165px; animation-delay:2.2s" fill="url(#petalTeal)" d="M350,165 C310,140 300,90 350,60 C400,90 390,140 350,165 Z"/>
+
+        <path class="fpetal" style="--rot:25deg;--ox:350px;--oy:165px; animation-delay:2.3s" fill="url(#petalPink)" d="M350,165 C320,145 313,110 350,85 C387,110 380,145 350,165 Z"/>
+        <path class="fpetal" style="--rot:85deg;--ox:350px;--oy:165px; animation-delay:2.35s" fill="url(#petalOrange)" d="M350,165 C320,145 313,110 350,85 C387,110 380,145 350,165 Z"/>
+        <path class="fpetal" style="--rot:145deg;--ox:350px;--oy:165px; animation-delay:2.4s" fill="url(#petalRed)" d="M350,165 C320,145 313,110 350,85 C387,110 380,145 350,165 Z"/>
+        <path class="fpetal" style="--rot:205deg;--ox:350px;--oy:165px; animation-delay:2.45s" fill="url(#petalPurple)" d="M350,165 C320,145 313,110 350,85 C387,110 380,145 350,165 Z"/>
+        <path class="fpetal" style="--rot:265deg;--ox:350px;--oy:165px; animation-delay:2.5s" fill="url(#petalYellow)" d="M350,165 C320,145 313,110 350,85 C387,110 380,145 350,165 Z"/>
+        <path class="fpetal" style="--rot:325deg;--ox:350px;--oy:165px; animation-delay:2.55s" fill="url(#petalBlue)" d="M350,165 C320,145 313,110 350,85 C387,110 380,145 350,165 Z"/>
+
+        <path class="fpetal" style="--rot:0deg;--ox:350px;--oy:165px; animation-delay:2.6s" fill="url(#petalRed)" d="M350,165 C333,150 330,128 350,112 C370,128 367,150 350,165 Z"/>
+        <path class="fpetal" style="--rot:72deg;--ox:350px;--oy:165px; animation-delay:2.62s" fill="url(#petalPink)" d="M350,165 C333,150 330,128 350,112 C370,128 367,150 350,165 Z"/>
+        <path class="fpetal" style="--rot:144deg;--ox:350px;--oy:165px; animation-delay:2.64s" fill="url(#petalOrange)" d="M350,165 C333,150 330,128 350,112 C370,128 367,150 350,165 Z"/>
+        <path class="fpetal" style="--rot:216deg;--ox:350px;--oy:165px; animation-delay:2.66s" fill="url(#petalPurple)" d="M350,165 C333,150 330,128 350,112 C370,128 367,150 350,165 Z"/>
+        <path class="fpetal" style="--rot:288deg;--ox:350px;--oy:165px; animation-delay:2.68s" fill="url(#petalYellow)" d="M350,165 C333,150 330,128 350,112 C370,128 367,150 350,165 Z"/>
+      </g>
+
+      <g id="fBudL" transform="translate(225,455)">
+        <path class="fpetal" style="--rot:0deg;--ox:0px;--oy:0px; animation-delay:2.8s" fill="url(#petalPink)" d="M0,0 C-16,-12 -18,-30 0,-42 C18,-30 16,-12 0,0 Z" transform="scale(0.6)"/>
+        <path class="fpetal" style="--rot:90deg;--ox:0px;--oy:0px; animation-delay:2.85s" fill="url(#petalRed)" d="M0,0 C-16,-12 -18,-30 0,-42 C18,-30 16,-12 0,0 Z" transform="scale(0.6)"/>
+        <path class="fpetal" style="--rot:180deg;--ox:0px;--oy:0px; animation-delay:2.9s" fill="url(#petalOrange)" d="M0,0 C-16,-12 -18,-30 0,-42 C18,-30 16,-12 0,0 Z" transform="scale(0.6)"/>
+        <path class="fpetal" style="--rot:270deg;--ox:0px;--oy:0px; animation-delay:2.95s" fill="url(#petalPurple)" d="M0,0 C-16,-12 -18,-30 0,-42 C18,-30 16,-12 0,0 Z" transform="scale(0.6)"/>
+      </g>
+      <g id="fBudR" transform="translate(465,410)">
+        <path class="fpetal" style="--rot:0deg;--ox:0px;--oy:0px; animation-delay:3.0s" fill="url(#petalBlue)" d="M0,0 C-16,-12 -18,-30 0,-42 C18,-30 16,-12 0,0 Z" transform="scale(0.6)"/>
+        <path class="fpetal" style="--rot:90deg;--ox:0px;--oy:0px; animation-delay:3.05s" fill="url(#petalTeal)" d="M0,0 C-16,-12 -18,-30 0,-42 C18,-30 16,-12 0,0 Z" transform="scale(0.6)"/>
+        <path class="fpetal" style="--rot:180deg;--ox:0px;--oy:0px; animation-delay:3.1s" fill="url(#petalYellow)" d="M0,0 C-16,-12 -18,-30 0,-42 C18,-30 16,-12 0,0 Z" transform="scale(0.6)"/>
+        <path class="fpetal" style="--rot:270deg;--ox:0px;--oy:0px; animation-delay:3.15s" fill="url(#petalRed)" d="M0,0 C-16,-12 -18,-30 0,-42 C18,-30 16,-12 0,0 Z" transform="scale(0.6)"/>
+      </g>
+
+      <use href="#fButterflyTpl" class="fbutterfly" width="46" height="46"
+        style="--flydur:7s; --flydelay:2.4s; offset-path:path('M40,600 C150,450 100,300 220,220 C320,150 420,180 480,100 C520,60 580,50 640,90');"/>
+      <use href="#fButterflyTpl" class="fbutterfly" width="38" height="38"
+        style="--flydur:9s; --flydelay:3.0s; offset-path:path('M660,560 C560,500 520,400 440,380 C360,360 300,250 340,150 C370,90 300,40 210,50');"/>
+      <use href="#fButterflyTpl" class="fbutterfly" width="32" height="32"
+        style="--flydur:8s; --flydelay:3.6s; offset-path:path('M60,120 C160,180 140,300 260,340 C380,380 380,500 300,600 C260,650 180,640 120,590');"/>
+
+      <g id="fFallingPetals" fill="url(#petalPink)"></g>
+
+      <g id="fSparkles"></g>
+    </svg>
+  </div>
+
   <div class="finale-message">Jiayou, Bunga! 🌸</div>
   <div class="finale-sub">Selamat mekar, selamat bersinar di panggung PPLK ✨</div>
   <button class="btn secondary" id="closeFinale" onclick="closeFinale()">Tutup ✕</button>
@@ -352,6 +614,38 @@
 
 <script>
   const emojiSet = ["🌸","🌷","🌺","🌼","🌹","💮","🏵️"];
+
+  /* ---------- background music ---------- */
+  const bgMusic = document.getElementById('bgMusic');
+  const musicToggle = document.getElementById('musicToggle');
+
+  function updateMusicIcon(){
+    if(bgMusic.paused){
+      musicToggle.textContent = '🔇';
+      musicToggle.classList.remove('spinning');
+    } else {
+      musicToggle.textContent = '🎵';
+      musicToggle.classList.add('spinning');
+    }
+  }
+
+  function startMusicOnce(){
+    if(bgMusic.paused){
+      bgMusic.play().then(updateMusicIcon).catch(()=>{});
+    }
+  }
+  document.addEventListener('click', startMusicOnce, { once:true });
+  document.addEventListener('touchstart', startMusicOnce, { once:true });
+
+  function toggleMusic(e){
+    e.stopPropagation();
+    if(bgMusic.paused){
+      bgMusic.play().catch(()=>{});
+    } else {
+      bgMusic.pause();
+    }
+    updateMusicIcon();
+  }
 
   /* ---------- loading screen ---------- */
   window.addEventListener('load', () => {
@@ -448,31 +742,70 @@
     box.textContent = twisters[Math.floor(Math.random()*twisters.length)];
   }
 
-  /* ---------- finale full screen flower animation ---------- */
-  let finaleInterval = null;
+  /* ---------- finale full screen: mawar mekar + kupu-kupu ---------- */
+  const svgNS = "http://www.w3.org/2000/svg";
+
+  function initFinaleFlowerScene(){
+    const starsG = document.getElementById('fStars');
+    for (let i = 0; i < 60; i++) {
+      const s = document.createElementNS(svgNS, 'circle');
+      s.setAttribute('cx', Math.random() * 700);
+      s.setAttribute('cy', Math.random() * 700);
+      s.setAttribute('r', Math.random() * 1.6 + 0.4);
+      s.setAttribute('class', 'fstar');
+      s.style.animationDelay = (Math.random() * 3) + 's';
+      starsG.appendChild(s);
+    }
+
+    const sparkG = document.getElementById('fSparkles');
+    const sparklePositions = [[420,90],[270,120],[440,180],[300,200],[380,60],[460,140],[250,160]];
+    sparklePositions.forEach((p, i) => {
+      const c = document.createElementNS(svgNS, 'circle');
+      c.setAttribute('cx', p[0]);
+      c.setAttribute('cy', p[1]);
+      c.setAttribute('r', 2 + Math.random() * 2.5);
+      c.setAttribute('fill', '#fff');
+      c.setAttribute('class', 'fsparkle');
+      c.style.animationDelay = (3 + i * 0.2) + 's';
+      sparkG.appendChild(c);
+    });
+
+    const fallG = document.getElementById('fFallingPetals');
+    const petalColors = ['url(#petalRed)','url(#petalPink)','url(#petalOrange)','url(#petalPurple)','url(#petalYellow)','url(#petalBlue)','url(#petalTeal)'];
+    for (let i = 0; i < 14; i++) {
+      const p = document.createElementNS(svgNS, 'path');
+      p.setAttribute('d', 'M0,0 C-6,-8 -6,-16 0,-20 C6,-16 6,-8 0,0 Z');
+      p.setAttribute('fill', petalColors[i % petalColors.length]);
+      p.setAttribute('class', 'ffalling-petal');
+      const startX = 200 + Math.random() * 300;
+      const startY = 40 + Math.random() * 120;
+      const dx = (Math.random() - 0.5) * 200;
+      const spin = (Math.random() > 0.5 ? 1 : -1) * (180 + Math.random() * 360);
+      p.style.setProperty('--dx', dx + 'px');
+      p.style.setProperty('--spin', spin + 'deg');
+      p.style.transform = `translate(${startX}px, ${startY}px)`;
+      p.style.animationDuration = (5 + Math.random() * 4) + 's';
+      p.style.animationDelay = (3.5 + i * 0.6) + 's';
+      fallG.appendChild(p);
+    }
+  }
+  initFinaleFlowerScene();
+
+  function replayFinaleFlower(){
+    const scene = document.getElementById('fScene');
+    const clone = scene.cloneNode(true);
+    scene.parentNode.replaceChild(clone, scene);
+    clone.id = 'fScene';
+  }
+
   function openFinale(){
     const screen = document.getElementById('finaleScreen');
     screen.classList.add('show');
-    spawnFinalePetal();
-    finaleInterval = setInterval(spawnFinalePetal, 150);
+    replayFinaleFlower();
   }
   function closeFinale(){
     const screen = document.getElementById('finaleScreen');
     screen.classList.remove('show');
-    clearInterval(finaleInterval);
-    screen.querySelectorAll('.finale-petal').forEach(el => el.remove());
-  }
-  function spawnFinalePetal(){
-    const screen = document.getElementById('finaleScreen');
-    const p = document.createElement('div');
-    p.className = 'finale-petal';
-    p.textContent = emojiSet[Math.floor(Math.random()*emojiSet.length)];
-    p.style.left = Math.random()*100 + 'vw';
-    p.style.fontSize = (18 + Math.random()*24) + 'px';
-    const dur = 3 + Math.random()*3;
-    p.style.animationDuration = dur + 's';
-    screen.appendChild(p);
-    setTimeout(()=>p.remove(), dur*1000);
   }
 </script>
 
